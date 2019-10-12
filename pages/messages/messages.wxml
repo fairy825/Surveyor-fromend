@@ -1,0 +1,30 @@
+<wxs src="../../utils/date.wxs" module="tools" />
+
+<view class='container'>
+  <view class="categorySortBar">
+    <view class="categorySortBarLeft">
+      <view wx:for="{{indexTab}}" wx:key="id">
+        <text class="{{sort == index ? selected : normal }}" bindtap="changeindex" data-arrindex='{{index}}'>{{item}}</text>
+      </view>
+    </view>
+    <view class="categorySortBarRight" bindtap="showSearch">
+      <icon class="weui-icon-search_in-box" type="search" size="14" />
+    </view>
+  </view>
+  <view class="messages">
+    <view class="item" wx:for="{{surveyList}}" wx:key="id">
+      <navigator url="/pages/show/show">
+        <view class="itemleft">
+          <text class="title">{{item.title}}</text>
+          <view wx:if="{{item.desc!=null}}" class="summary">{{item.desc}}</view>
+          <!-- <text wx:else class="summary">{{item.desc}}</text> -->
+        </view>
+        <view class="money">￥{{item.price}}</view>
+        <!-- <view class="money">{{item.publishTime}}</view> -->
+        <view class="date">{{tools.dateFormat(item.publishTime)}}</view>
+        <!-- <view class="date">{{tools.dateFormat(1537578367970)}}</view> -->
+      </navigator>
+    </view>
+  </view>
+  <view id="bottom"></view>
+</view>

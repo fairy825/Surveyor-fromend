@@ -1,0 +1,18 @@
+<wxs src="../../utils/num.wxs" module="num" />
+
+<view class="weui-tab__content">
+  <view class="messages">
+    <view wx:for="{{answerList}}" wx:key="id">
+      <view class="item" id="{{item.surveyid}}" bindtap="click">
+        <view class="itemleft">
+          <text class="title">{{item.title}}</text>
+          <text class="state">已到账</text>
+        </view>
+        <view class='itemright'>
+          <view class="num">答题金额</view>
+          <view class="money">￥{{num.formatMoney(item.price/item.needpaper)}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

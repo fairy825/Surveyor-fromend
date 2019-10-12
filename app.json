@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/myAnswer/myAnswer",
+    "pages/login/login",
+    "pages/myQuest/myQuest",
+    "pages/index/index",
+    "pages/beforeCreate/beforeCreate",
+    "pages/messages/messages",
+    "pages/searchVideo/searchVideo",
+    "pages/profile/profile",
+    "pages/regist/regist",
+    "pages/result/result",
+    "pages/show/show",
+    "pages/edit/edit",
+    "pages/release/release",
+    "pages/createQues/createQues",
+    "pages/myPacket/myPacket"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#3a4861",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "Surveyor",
+    "backgroundColor": "#bcc0c9",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#444",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/home.png",
+        "selectedIconPath": "assets/home-actived.png"
+      },
+      {
+        "pagePath": "pages/messages/messages",
+        "text": "发现",
+        "iconPath": "assets/safari.png",
+        "selectedIconPath": "assets/safari-actived.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/profile.png",
+        "selectedIconPath": "assets/profile-actived.png"
+      }
+    ],
+    "position": "bottom"
+  },
+  "sitemapLocation": "sitemap.json"
+}

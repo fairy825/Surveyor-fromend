@@ -1,0 +1,36 @@
+/**index.wxss**/
+ec-canvas {
+  width: 100%;
+  height: 55%;
+}
+.chart {
+  position: absolute;
+  top: 10%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+ 
+} 
+.button-sp-area{
+    margin: auto auto;
+    padding-top: 0px;
+    width: 100%;
+
+}
+page{
+    background-color:white;
+}
+.mini-btn{
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}

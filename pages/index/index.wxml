@@ -1,0 +1,18 @@
+  <!-- <view>{{app.globalData.haslogin}}</view> -->
+<swiper indicator-dots="true"
+  autoplay="true" interval="3000" duration="500">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <!-- <image src="{{item}}" mode="aspectFit" class="slide-image" width="355" height="150"/> -->
+      <image src="{{item}}" mode="aspectFit" class="banner"/>
+    </swiper-item>
+  </block>
+</swiper>
+  <!-- <image  class="banner" mode="aspectFit" src="../../assets/banner.jpg"></image> -->
+<!-- 六宫格 -->
+<view class="grids">
+  <navigator class="item" wx:for="{{categories}}" open-type="{{item.type}}" url="../{{item.name}}/{{item.name}}">
+    <image src="{{item.icon}}"/>
+    <text>{{item.text}}</text>
+  </navigator>
+</view>

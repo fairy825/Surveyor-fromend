@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="page">
+  <view class="button-sp-area">
+    <!-- <button class="weui-btn mini-btn" type="default" size="mini"id='1' bindtap='bindChange'>环状图</button> -->
+    <button class="weui-btn mini-btn" type="default" size="mini" id='2' bindtap='bindChange'>饼状图</button>
+
+    <button class="weui-btn mini-btn" type="default" size="mini" id='3' bindtap='bindChange'>条形图</button>
+  </view>
+
+  <view class="chart">
+    <!-- <ec-canvas id="mychart-dom-ring" canvas-id="mychart-ring" ec="{{ ec1 }}" bind:init="echartInit1" ></ec-canvas> -->
+    <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec2 }}" bind:init="echartInit2"></ec-canvas>
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec3 }}"></ec-canvas>
+  </view>
+</view>

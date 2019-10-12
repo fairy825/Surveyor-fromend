@@ -1,0 +1,86 @@
+/* page {
+  height: 100%;
+} */
+
+.page {
+  height: 100%;
+}
+
+.page__bd {
+  height: 100%;
+  padding-bottom: 0;
+}
+
+.weui-tab__content {
+  padding-top: 30rpx;
+  height: 100%;
+}
+
+.messages {
+  margin: 10rpx;
+  height: 100%;
+}
+
+.messages .item {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30rpx;
+  padding: 20rpx 35rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  background-color: #fff;
+  position: relative;
+}
+
+.messages .item:last-child {
+  margin-bottom: 0;
+}
+
+.messages .item .itemleft {
+  width: 80%;
+  height: 100%;
+}
+
+.messages .item .itemright {
+  width: 20%;
+  height: 100%;
+}
+
+.messages .item .itemright .num {
+  font-size: 26rpx;
+  color: #888;
+  text-align: right;
+  position: absolute;
+  top: 30rpx;
+  right: 35rpx;
+}
+
+.messages .item .itemright .count {
+  color: #37a2da;
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: right;
+  position: absolute;
+  bottom: 20rpx;
+  right: 35rpx;
+  display: flex;
+}
+
+.messages .itemleft .title {
+  font-size: 30rpx;
+  color: #222;
+}
+
+.messages .itemleft .state {
+  display: flex;
+  font-size: 26rpx;
+  color: #888;
+}
+
+.messages .item .expand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+  font-size: 30rpx;
+}

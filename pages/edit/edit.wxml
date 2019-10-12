@@ -1,0 +1,39 @@
+<view class="page">
+<view class="container">
+  <view class="inputwenjuan"> 
+      <view class="smallinput title">
+        <text>{{title}}</text>
+      </view>
+      <view class="smallinput">
+        <text>{{description}}</text>
+      </view>
+  <navigator open-type="redirect" url="/pages/beforeCreate/beforeCreate?surveyId={{surveyId}}">
+    <button class="weui-btn" type="default">修改</button>
+  </navigator>
+  </view>
+  <view class="divider"></view>
+<view class="weui-cells__title">题目</view>
+<view class="weui-cells weui-cells_after-title">
+    <block wx:for="{{questions}}" wx:key="{{item.id}}">
+      <navigator open-type="redirect" url="/pages/createQues/createQues?questionId={{item.id}}" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd">
+        {{item.sequence}}.{{item.content}}
+        <label><text wx:if="{{item.must==true}}" style='color:red'>*</text><text style="font-size:30rpx">({{item.typeDesc}})</text></label>
+        </view>
+        
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </block>
+</view>
+
+  <view class="add">
+  <navigator open-type="redirect" url="/pages/createQues/createQues?surveyId={{surveyId}}">
+  <view class="addques">
+    <view><image src="../../assets/plus.png"></image></view>
+    <view>添加题目</view>
+  </view>
+  </navigator>
+  </view>
+  <button class="new" bindtap="checkPublish">完成</button>
+</view>
+</view>

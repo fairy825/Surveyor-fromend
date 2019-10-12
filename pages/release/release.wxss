@@ -1,0 +1,27 @@
+/* pages/release/release.wxss */
+
+.button-share {
+  width: 80%;
+}
+
+.icon-box-img {
+  margin-right: 80%;
+}
+
+.icon-box-text {
+  font-size: 38rpx;
+  margin:10rpx 0;
+}
+
+.hintout {
+  margin: 100rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.icon-box {
+  flex-direction: column;
+  color: #3a4861;
+  text-align: center;
+}

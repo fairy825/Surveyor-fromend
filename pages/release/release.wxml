@@ -1,0 +1,15 @@
+<!--pages/release/release.wxml-->
+<view class='container'>
+  <view class="hintout">
+    <view class="icon-box">
+      <view>
+        <icon class="icon-box-img" type="success" size="93"></icon>
+      </view>
+      <view class="icon-box-text">发布成功</view>
+    </view>
+  </view>
+  <button bindtap="handleTapShareButton" open-type="share" class="button-share" id="share-button" type='primary'>转发
+  </button>
+  <button bindtap="bindChange" class="button-share" type='default'>返回首页
+  </button>
+</view>

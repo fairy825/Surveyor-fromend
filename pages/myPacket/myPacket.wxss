@@ -1,0 +1,101 @@
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 60px;
+    text-align: center;
+}
+.getmoney{
+  background-color: white;
+  padding:30rpx 30rpx;
+  margin:20rpx 0;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  height: 80%;
+  font-size:30rpx;
+  color:#222;
+}
+.remain{
+  position:relative;
+  margin:20rpx 0;
+}
+.remaincolumn{
+  display:inline-block;
+  /* background-color: blue; */
+  width:60%;
+}
+.remainright{
+  display:inline-block;
+  /* background-color: black; */
+  right:0;
+  text-align: center;
+  line-height:40rpx;
+  position:absolute;
+  width:40%;
+}
+.getmoney .remainsum,.remainyuan{
+  color:#888;
+}
+.remainsum{
+  font-weight:bold;
+  font-size:40rpx;
+}
+.withdraw{
+  position:relative;
+  margin-top:20rpx;
+}
+.withdrawcolumn{
+  display:flex;
+  padding-bottom: 40rpx;
+}
+.withdrawunder{
+  display: inline-flex;
+  flex-direction: row;
+}
+.withdrawyuan , .withdrawsum{
+  color:black;
+  font-weight: bold;
+  font-size:60rpx;
+  line-height:60rpx;
+}
+.withdrawbelow{
+  display:flex;
+  height:5rpx;
+  width:100%;
+  margin-bottom:10rpx;
+  border-color: #ddd;
+  border-style: solid;
+  border-width:0 0 5rpx 0;
+}
+.submitall{
+  color:#888;
+  font-size:25rpx;
+  padding-top:10rpx;
+}
+.submitbutton{
+  height:70rpx;
+  line-height: 70rpx;
+  /* padding:5rpx; */
+  font-size:40rpx;
+  margin:40rpx 0;
+}
+.space{
+  height:40rpx;
+  display: block;
+  /* border: 1px solid black; */
+  /* padding:5px 0; */
+}
+.hint{
+  display: block;
+  height:100%;
+  width:100%;
+  background: #c40000;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  line-height:40rpx;
+}
