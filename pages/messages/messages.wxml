@@ -1,4 +1,5 @@
 <wxs src="../../utils/date.wxs" module="tools" />
+<wxs src="../../utils/num.wxs" module="num" />
 
 <view class='container'>
   <view class="categorySortBar">
@@ -13,17 +14,18 @@
   </view>
   <view class="messages">
     <view class="item" wx:for="{{surveyList}}" wx:key="id">
-      <navigator url="/pages/show/show">
+      <view bindtap='showSurveyInfo' data-arrindex='{{index}}'>
         <view class="itemleft">
           <text class="title">{{item.title}}</text>
-          <view wx:if="{{item.desc!=null}}" class="summary">{{item.desc}}</view>
+          <view wx:if="{{item.desc!=null}}" class="summary">{{item.description}}</view>
           <!-- <text wx:else class="summary">{{item.desc}}</text> -->
         </view>
-        <view class="money">￥{{item.price}}</view>
+        <view class="money">￥{{num.formatMoney(item.price/item.needpaper)}}</view>
         <!-- <view class="money">{{item.publishTime}}</view> -->
         <view class="date">{{tools.dateFormat(item.publishTime)}}</view>
         <!-- <view class="date">{{tools.dateFormat(1537578367970)}}</view> -->
-      </navigator>
+      <!-- </navigator> -->
+      </view>
     </view>
   </view>
   <view id="bottom"></view>

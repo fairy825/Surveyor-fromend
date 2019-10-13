@@ -152,10 +152,11 @@ Page({
                 url: '../release/release?surveyId=' + surveyId,
               })
             }
-            page = 'share';
             break;
           case 3:
-            page = 'result';
+            wx.redirectTo({
+              url: '../result/result',
+            })
             break;
           case 4:
             if (status == 1) {

@@ -1,51 +1,19 @@
-const fetch = require('../../utils/fetch')
-
+var dateFormat = require('../../utils/date.js')
+var numFormat = require('../../utils/num.js')
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    ques:[],
-    messages: [{
-      id: 1001,
-      title: '用户满意度调查',
-      date: '2 September',
-      summary: '本调查不会泄露您的个人信息，请放心填写',
-      money: '￥0.5'
-    }],
-  list: [
-    {
-      id: '1',
-      type:"one",
-      question: '您的性别是',
-      choices: ['男', '女']
-    },
-    {
-      id: '2',
-      type: "one",
-      question: '您的年龄是',
-      choices: ['18岁以下', '18-24岁', '24-30岁', '30岁以上']
-    },
-    {
-      id: '3',
-      type: "scale",
-      question: '您对小程序的满意程度是',
-      former: "不满意",
-      latter: "满意",
-      formerNum: "1",
-      latterNum: "4"
-    }, 
-    {
-      id: '4',
-      type: "fill",
-      question: '您对小程序的改进意见是'
-    },
-    {
-      id: '5',
-      type: "many",
-      question: '您认为小程序有哪些优点',
-      choices: ['简单上手', '方便快捷',"页面美观","其他"]
-    }]
+    ques: [],
+    surveyInfo: {},
+    surveyId: '',
+    title: '',
+    date: '',
+    description: '',
+    money: '',
+    questionList: [],
   },
   radioChange(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -53,28 +21,77 @@ Page({
   checkboxChange(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value)
   },
-  sliderChange(e){
+  sliderChange(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value)
   },
   fillChange(e) {
     console.log('input发生change事件，携带value值为：', e.detail.value)
   },
-  formsubmit(e){
+  getAllQuestionList: function(page) {
+    var that = this;
+    var serverUrl = app.serverUrl;
+    var userInfo = app.getGlobalUserInfo();
+
+    wx.request({
+      url: serverUrl + '/question/queryAll?surveyId=' + that.data.surveyId + '&userId=' + userInfo.id,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json', // 默认值
+      },
+
+      success(res) {
+        console.log(res.data);
+        wx.hideLoading();
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+        var status = res.data.status;
+        if (page === 1) {
+          that.setData({
+            questionList: []
+          });
+        }
+        console.log(res.data.data.rows);
+        var questionList = res.data.data.rows;
+        console.log("questionList " + questionList);
+
+        var newQuestionList = that.data.questionList;
+
+        that.setData({
+          questionList: newQuestionList.concat(questionList),
+          page: page,
+          totalPage: res.data.data.total,
+          serverUrl: serverUrl
+        });
+        console.log(that.data.questionList);
+      }
+
+    })
+  },
+  onLoad: function(params) {
+    var that = this;
+    var surveyInfo = JSON.parse(params.surveyInfo);
+    that.setData({
+      surveyId: surveyInfo.id,
+      serverUrl: app.serverUrl,
+      surveyInfo: surveyInfo,
+    })
+
+    var surveyId = that.data.surveyId;
+    var serverUrl = that.data.serverUrl;
+    console.log("surveyId:" + surveyId)
+    that.getAllQuestionList(1);
+  },
+  formsubmit(e) {
+    var that = this;
     console.log('提交：', e);
     console.log('提交携带value值为：', e.detail.value);
-    console.log( e.detail.value.name);
+    var userInfo = app.getGlobalUserInfo();
     var array = new Array();
     array = e.detail.value;
-    console.log('array：', array);
-    var i,flag=false;
-    var l = this.data.list.length;
-    console.log('length：', l);
-    for(i=1;i<=l;i++)
-    {
-      var k = "array.ques["+i+"]";
-      console.log(k);
-      if(array[i]=="") flag=true;
-    } 
+    var flag = false;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] == "") flag = true;
+    }
     if (flag) {
       wx.showModal({
         title: '提交失败',
@@ -82,16 +99,70 @@ Page({
         showCancel: false,
         confirmText: '确定'
       })
-    }
-    else {
-      wx.showToast({
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000
-      });
-      wx.redirectTo({
-        url: '../messages/messages',
+    } else {
+      var serverUrl = that.data.serverUrl;
+      var surveyId = that.data.surveyId;
+      // var answ = JSON.stringify(array);
+      console.log("array");
+      console.log(array);
+
+      wx.request({
+        url: serverUrl + '/answer/upload?userId=' + userInfo.id + '&surveyId=' + surveyId,
+        method: 'POST',
+        header: {
+          'content-type': 'application/json', // 默认值
+        },
+        data: {
+          answ: array
+        },
+        success(res) {
+          console.log(res.data);
+          var status = res.data.status;
+          if (status == 200) {
+            var data = res.data.data;
+            var minTime = that.data.surveyInfo.mintime;
+            console.log("minTime:" + minTime);
+            if (minTime != "" && minTime != undefined && minTime != null && data <= 1000 * 60 * minTime) {
+              wx.showToast({
+                title: '提交过快，请认真填写！',
+                icon: 'none',
+                duration: 1000
+              });
+            } else {
+              wx.showToast({
+                title: '提交成功',
+                icon: 'success',
+                duration: 2000,
+                success: function() {
+                  console.log('haha');
+                  setTimeout(function() {
+                    //要延时执行的代码
+                    wx.switchTab({
+                      url: '../messages/messages',
+                    })
+                  }, 2000) //延迟时间
+                }
+              })
+            }
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                console.log('haha');
+                setTimeout(function () {
+                  //要延时执行的代码
+                  wx.switchTab({
+                    url: '../messages/messages',
+                  })
+                }, 2000) 
+              }
+            });
+           
+          }
+        }
       })
-  }
+    }
   }
 })

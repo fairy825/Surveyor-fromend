@@ -6,20 +6,6 @@ Page({
     page: 1,
     serverUrl: "",
     answerList: [],
-    // messages: [{
-    //   id: 1001,
-    //   title: '用户满意度调查',
-    //   state: "已到账",
-    //   money: '0.5元'
-    // },
-    
-    // {
-    //   id: 1004,
-    //   title: '关于物流行业无人化技术应用的调查',
-    //   state: "被拒绝",
-    //   money: '2元'
-    // }
-    // ]
   },
   onLoad: function () {
     var that = this;

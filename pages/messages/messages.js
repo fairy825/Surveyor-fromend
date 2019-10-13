@@ -14,35 +14,19 @@ Page({
     sort:0,
     selected:"selected",
     normal:"normal",
-    // surveyList: [{
-    //   id: 1001,
-    //   title: '用户满意度调查',
-    //   date: '2 September',
-    //   summary: '本调查不会泄露您的个人信息，请放心填写',
-    //   money:'￥0.5'
-    // },
-    //   {
-    //     id: 1002,
-    //     title: '学习情况调查',
-    //     date: '5 September',
-    //     summary: '本调查不会泄露您的个人信息，请放心填写',
-    //     money: '￥0.1'
-    //   },
-    //   {
-    //     id: 1003,
-    //     title: '关于大学生对公益活动看法的调查',
-    //     date: '5 September',
-    //     summary: '我们将进行一项问卷调查，非常感谢你的合作与协助！',
-    //     money: '￥0.5'
-    //   },
-    //   {
-    //     id: 1004,
-    //     title: '关于物流行业无人化技术应用的调查',
-    //     date: '7 September',
-    //     summary: '本调查不会泄露您的个人信息，请放心填写',
-    //     money: '￥1.5'
-    //   }
-    // ]
+  },
+  showSurveyInfo:function(e){
+    var that = this;
+    var surveyList = this.data.surveyList;
+    console.log(e);
+    console.log(e.currentTarget.dataset);
+    var arrindex = e.currentTarget.dataset.arrindex;
+    var surveyInfo = JSON.stringify(surveyList[arrindex]);
+    console.log(surveyInfo);
+
+    wx.redirectTo({
+      url: '../show/show?surveyInfo=' + surveyInfo,
+    })
   },
   onShow: function () {
     var that = this;

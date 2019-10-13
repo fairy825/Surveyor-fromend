@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/myAnswer/myAnswer",
     "pages/login/login",
+    
+        "pages/show/show",
+        
+    "pages/myAnswer/myAnswer",
     "pages/myQuest/myQuest",
     "pages/index/index",
     "pages/beforeCreate/beforeCreate",
@@ -10,7 +13,6 @@
     "pages/profile/profile",
     "pages/regist/regist",
     "pages/result/result",
-    "pages/show/show",
     "pages/edit/edit",
     "pages/release/release",
     "pages/createQues/createQues",

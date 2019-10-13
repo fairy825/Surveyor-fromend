@@ -7,12 +7,12 @@ Page({
    */
   data: {
     surveyId: '',
-    title: '',
+    surveyInfo:{},
   },
   onShareAppMessage() {
     return {
-      title: this.data.title,
-      path: '/pages/show/show?surveyId=' + this.data.surveyId,
+      title: this.data.surveyInfo.title,
+      path: '/pages/show/show?surveyInfo=' + this.data.surveyInfo,
       imageUrl: '../../assets/banner.jpg'
     }
   },
@@ -54,7 +54,7 @@ Page({
         if (status == 200) {
           var data = res.data.data;
           that.setData({
-            title: data.title
+            surveyInfo: data
           })
         }
       }

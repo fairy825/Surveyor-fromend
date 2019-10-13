@@ -1,7 +1,11 @@
  .cells {
   margin-top: 20rpx;
 }
-
+.weui-cell image{
+  height:50rpx;
+  width:50rpx;
+  line-height: 50rpx;
+}
 .cells .item {
   height:60rpx;
   display: flex;

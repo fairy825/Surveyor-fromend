@@ -75,7 +75,7 @@ Page({
           console.log(that.data.inputVal);
           for (var i = 0; i < choiceNum;i++)
           {
-            if (inputVal[i] == '其他（自填）') {
+            if (inputVal[i] == '其他') {
               hide = true;
               array.push(2);
             }else{
@@ -133,7 +133,7 @@ Page({
     // var nowIdx = e.currentTarget.dataset.idx; //获取当前索引
     var nowIdx = this.data.choiceNum-1;
     var oldVal = this.data.inputVal;
-    oldVal[nowIdx] = "其他（自填）"; //修改对应索引值的内容
+    oldVal[nowIdx] = "其他"; //修改对应索引值的内容
     this.setData({
       inputVal: oldVal
     })

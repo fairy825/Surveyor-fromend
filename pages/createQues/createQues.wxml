@@ -65,7 +65,7 @@
         <view class="grey">
           <view class="weui-cell weui-cell_input">
              <view wx:if="{{item==2}}" class="weui-cell__bd">
-               <input name="option" type='text' data-idx='{{index}}' value='其他（自填）' disabled="disabled"/> 
+               <input name="option" type='text' data-idx='{{index}}' value='其他' disabled="disabled"/> 
              </view>
               <view wx:else class="weui-cell__bd">
               <view class="weui-cell__bd">
@@ -90,7 +90,7 @@
        <view class="weui-cell weui-cell_input">
           <view class="weui-cell__bd">
             <label bindtap="addblank"><image src="../../assets/plus.png"></image>
-           <text >添加填空项</text></label>
+           <text >添加其他</text></label>
           </view>
         </view>
       </view>

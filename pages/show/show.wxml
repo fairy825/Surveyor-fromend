@@ -1,20 +1,24 @@
+<wxs src="../../utils/num.wxs" module="num" />
+<wxs src="../../utils/date.wxs" module="tools" />
+
 <view class="page">
-  <view class="head" wx:for="{{messages}}" wx:key="id">
+  <view class="head" >
      <view class="itemleft">
-       <text class="title">{{item.title}}</text>
-       <text class="summary">{{item.summary}}</text>
+       <text class="title">{{surveyInfo.title}}</text>
+       <text class="summary">{{surveyInfo.description}}</text>
      </view>
-       <view class="money">{{item.money}}</view>
-       <view class="date">{{item.date}}</view>
+       <view class="money">￥{{num.formatMoney(surveyInfo.price/surveyInfo.needpaper)}}</view>
+       <view class="date">{{tools.dateFormat(surveyInfo.publishTime)}}</view>
   </view>
   <view class="divider"></view>
 <form bindsubmit='formsubmit'>
   <view class="content">
-  <block  wx:for="{{list}}" wx:key="id">
+  <block  wx:for="{{questionList}}" wx:key="id">
     <view class="q">
-      <view class="queshead">{{item.id}}.{{item.question}}</view>
+      <view class="queshead">{{index+1}}.{{item.content}}</view>
+
       <view wx:if="{{item.type=='one'}}" class="queschoice">
-        <radio-group name="ques[{{item.id}}]" class="radio-group" bindchange="radioChange">
+        <radio-group name="{{item.id}}" class="radio-group" bindchange="radioChange">
           <label class="radio" wx:for="{{item.choices}}" wx:for-item="choice" wx:key="*this">
             <view><radio data-idx='{{index}}' value="{{index}}"/>{{choice}}</view>
           </label>
@@ -22,7 +26,7 @@
       </view>
       <view wx:elif="{{item.type=='many'}}" class="queschoice">
         <view class="weui-cell">
-          <checkbox-group name="ques[{{item.id}}]" bindchange="checkboxChange">
+          <checkbox-group name="{{item.id}}" bindchange="checkboxChange">
             <label class="checkbox" wx:for="{{item.choices}}" wx:for-item="choice" wx:key="*this">
             <view><checkbox data-idx='{{index}}' value="{{index}}"/>{{choice}}</view>
             </label>
@@ -32,15 +36,16 @@
       <view wx:elif="{{item.type=='fill'}}" class="quesblank">
         <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea name="ques[{{item.id}}]" class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" />
+                    <textarea name="{{item.id}}" class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" />
                     <view class="weui-textarea-counter">0/200</view>
                 </view>
             </view>
       </view>
       <view wx:else class="queschoice">
-        <view class="upper"><text class="former">{{item.former}}({{item.formerNum}})</text><text class="later">{{item.latter}}({{item.latterNum}})</text></view>
-        <view><slider name="ques[{{item.id}}]" bindchange="sliderChange" show-value min="1" max="4"/></view>
+        <view class="upper"><text class="former">({{item.lowscale}})</text><text class="later">({{item.upscale}})</text></view>
+        <view><slider name="{{item.id}}" bindchange="sliderChange" show-value min="{{item.lowscale}}" max="{{item.upscale}}"/></view>
       </view>
+      
     </view>
     <view class="divider"></view>
   </block>

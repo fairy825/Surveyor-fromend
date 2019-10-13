@@ -75,6 +75,7 @@ Page({
       var description = e.detail.value.description;
       var anony = e.detail.value.anony;
       var testlie = e.detail.value.testlie;
+      var mintime = e.detail.value.mintime;
       var price;
       var surveyId = that.data.surveyId;
       var v = that.data.date +" "+ that.data.nowTime;
@@ -101,6 +102,7 @@ Page({
             anony: anony,
             testlie: testlie,
             endTime: d,
+            mintime:mintime,
           },
           header: {
             'content-type': 'application/json' // 默认值
@@ -151,7 +153,8 @@ Page({
             needpaper: needpaper,
             anony: anony,
             testlie: testlie,
-            endTime:d
+            endTime:d,
+            mintime: mintime,
           },
           header: {
             'content-type': 'application/json' // 默认值
