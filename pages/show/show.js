@@ -89,8 +89,18 @@ Page({
     var array = new Array();
     array = e.detail.value;
     var flag = false;
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] == "") flag = true;
+    var l = that.data.questionList.length;
+    // debugger;
+    // console.log(array."190928BNFBH68940");
+    // console.log(array.190928BNFBH68940);
+
+    for (var i = 0; i < l; i++) {
+      var q = that.data.questionList[i];
+      var s = q.id;
+      if (q.must == true && array[s] == "") {
+        flag = true;
+        break;
+      }
     }
     if (flag) {
       wx.showModal({

@@ -14,11 +14,12 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <view class="messages">
             <view wx:for="{{surveyList}}" wx:key="id">
-              <view class="item" id="{{item.id}}"  data-arrindex='{{index}}' bindtap="actionSheetTap">
+              <view class="item" id="{{item.id}}" data-arrindex='{{index}}' bindtap="actionSheetTap">
                 <view class="itemleft">
                   <text class="title">{{item.title}}</text>
                   <view class="state">
                     <view wx:if="{{item.status=='1'}}">进行中</view>
+                    <view wx:elif="{{item.status=='3'}}">已完成</view>
                     <view wx:else>未发布</view>
                   </view>
                 </view>
@@ -34,7 +35,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <view class="messages">
             <view wx:for="{{surveyList}}" wx:key="id">
-              <view class="item" wx:if="{{item.status=='1'}}"  data-arrindex='{{index}}' id="{{item.id}}" bindtap="actionSheetTap">
+              <view class="item" wx:if="{{item.status=='1'}}" data-arrindex='{{index}}' id="{{item.id}}" bindtap="actionSheetTap">
                 <view class="itemleft">
                   <text class="title">{{item.title}}</text>
                   <text class="state">进行中</text>
@@ -51,10 +52,27 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
           <view class="messages">
             <view wx:for="{{surveyList}}" wx:key="id">
-              <view class="item" wx:if="{{item.status==2}}" id="{{item.id}}"  data-arrindex='{{index}}' bindtap="actionSheetTap">
+              <view class="item" wx:if="{{item.status=='2'}}" data-arrindex='{{index}}' id="{{item.id}}" bindtap="actionSheetTap">
                 <view class="itemleft">
                   <text class="title">{{item.title}}</text>
                   <text class="state">未发布</text>
+                </view>
+                <view class='itemright'>
+                  <view class="num">答卷数量</view>
+                  <view class="count">{{item.hadpaper}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+          <view class="messages">
+            <view wx:for="{{surveyList}}" wx:key="id">
+              <view class="item" wx:if="{{item.status==3}}" id="{{item.id}}" data-arrindex='{{index}}' bindtap="actionSheetTap">
+                <view class="itemleft">
+                  <text class="title">{{item.title}}</text>
+                  <text class="state">已完成</text>
                 </view>
                 <view class='itemright'>
                   <view class="num">答卷数量</view>

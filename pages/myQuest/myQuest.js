@@ -3,7 +3,7 @@ var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page({
   data: {
-    tabs: ["全部", "进行中", "未发布"],
+    tabs: ["全部", "进行中", "未发布","已完成"],
     // itemList: ['编辑', '暂停', '分享', '结果', '删除'],
     page: 1,
     totalPage: 1,

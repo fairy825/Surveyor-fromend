@@ -15,7 +15,9 @@
   <view class="content">
   <block  wx:for="{{questionList}}" wx:key="id">
     <view class="q">
-      <view class="queshead">{{index+1}}.{{item.content}}</view>
+      <view class="queshead">{{index+1}}.{{item.content}}
+        <text wx:if="{{item.must==true}}" style='color:red'>*</text>
+      </view>
 
       <view wx:if="{{item.type=='one'}}" class="queschoice">
         <radio-group name="{{item.id}}" class="radio-group" bindchange="radioChange">
