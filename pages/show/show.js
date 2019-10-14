@@ -129,22 +129,11 @@ Page({
           console.log(res.data);
           var status = res.data.status;
           if (status == 200) {
-            var data = res.data.data;
-            var minTime = that.data.surveyInfo.mintime;
-            console.log("minTime:" + minTime);
-            if (minTime != "" && minTime != undefined && minTime != null && data <= 1000 * 60 * minTime) {
-              wx.showToast({
-                title: '提交过快，请认真填写！',
-                icon: 'none',
-                duration: 1000
-              });
-            } else {
               wx.showToast({
                 title: '提交成功',
                 icon: 'success',
                 duration: 2000,
                 success: function() {
-                  console.log('haha');
                   setTimeout(function() {
                     //要延时执行的代码
                     wx.switchTab({
@@ -153,7 +142,6 @@ Page({
                   }, 2000) //延迟时间
                 }
               })
-            }
           } else {
             wx.showToast({
               title: res.data.msg,

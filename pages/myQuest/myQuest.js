@@ -33,7 +33,7 @@ Page({
   getMySurveyList: function(page, status) {
     var that = this;
     var serverUrl = app.serverUrl;
-    var userInfo = app.getGlobalUserInfo();
+    var userInfo = app.getGlobalUserInfo(); 
     var url = serverUrl + '/survey/getSurveyByUser?userId=' + userInfo.id + '&page=' + page;
     if (status != undefined && status != '' && status != null)
       url = serverUrl + '/survey/getSurveyByUserAndStatus?userId=' + userInfo.id + '&page=' + page + '&status=' + status;
