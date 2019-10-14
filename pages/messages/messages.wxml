@@ -21,9 +21,8 @@
           <!-- <text wx:else class="summary">{{item.desc}}</text> -->
         </view>
         <view class="money">￥{{num.formatMoney(item.price/item.needpaper)}}</view>
-        <!-- <view class="money">{{item.publishTime}}</view> -->
-        <view class="date">{{tools.dateFormat(item.publishTime)}}</view>
-        <!-- <view class="date">{{tools.dateFormat(1537578367970)}}</view> -->
+        <!-- <view class="date">{{tools.dateFormat(item.publishTime)}}</view> -->
+        <view class="date">{{item.publishTime}}</view>
       <!-- </navigator> -->
       </view>
     </view>

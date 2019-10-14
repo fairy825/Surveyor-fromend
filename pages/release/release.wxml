@@ -1,15 +1,35 @@
 <!--pages/release/release.wxml-->
 <view class='container'>
-  <view class="hintout">
-    <view class="icon-box">
-      <view>
-        <icon class="icon-box-img" type="success" size="93"></icon>
+  <view class="page__hd">
+
+    <view class="hintout">
+      <view class="icon-box">
+        <view>
+          <icon class="icon-box-img" type="success" size="93"></icon>
+        </view>
+        <view class="icon-box-text">发布成功</view>
       </view>
-      <view class="icon-box-text">发布成功</view>
+    </view>
+    <button bindtap="handleTapShareButton" open-type="share" class="button-share" id="share-button" type='primary'>转发
+    </button>
+    <view class="divider"></view>
+    <button bindtap="bindChange" class="button-share" type='default'>返回首页
+    </button>
+  </view>
+    <view class="page__bd">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd">问卷编制小提示</view>
+    <view class="weui-panel__bd">
+      <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="{{logo}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{tip.title}}</view>
+          <view class="weui-media-box__desc">{{tip.content}}</view>
+        </view>
+      </navigator>
     </view>
   </view>
-  <button bindtap="handleTapShareButton" open-type="share" class="button-share" id="share-button" type='primary'>转发
-  </button>
-  <button bindtap="bindChange" class="button-share" type='default'>返回首页
-  </button>
+</view>
 </view>

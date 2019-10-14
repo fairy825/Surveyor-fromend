@@ -8,6 +8,8 @@ Page({
   data: {
     surveyId: '',
     surveyInfo:{},
+    tip:{},
+    logo:'../../assets/logo.jpg',
   },
   onShareAppMessage() {
     return {
@@ -55,6 +57,22 @@ Page({
           var data = res.data.data;
           that.setData({
             surveyInfo: data
+          })
+        }
+      }
+    })
+    wx.request({
+      url: serverUrl + '/survey/getTip',
+      method: 'GET',
+      header: {
+        'content-type': 'application/json', // 默认值
+      },
+      success(res) {
+        var status = res.data.status;
+        if (status == 200) {
+          var data = res.data.data;
+          that.setData({
+            tip: data
           })
         }
       }

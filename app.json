@@ -1,12 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/release/release",
     "pages/login/login",
-    
-        "pages/show/show",
-        
+    "pages/show/show",
     "pages/myAnswer/myAnswer",
     "pages/myQuest/myQuest",
-    "pages/index/index",
     "pages/beforeCreate/beforeCreate",
     "pages/messages/messages",
     "pages/searchVideo/searchVideo",
@@ -14,7 +13,6 @@
     "pages/regist/regist",
     "pages/result/result",
     "pages/edit/edit",
-    "pages/release/release",
     "pages/createQues/createQues",
     "pages/myPacket/myPacket"
   ],

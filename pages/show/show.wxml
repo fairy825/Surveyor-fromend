@@ -8,7 +8,7 @@
        <text class="summary">{{surveyInfo.description}}</text>
      </view>
        <view class="money">￥{{num.formatMoney(surveyInfo.price/surveyInfo.needpaper)}}</view>
-       <view class="date">{{tools.dateFormat(surveyInfo.publishTime)}}</view>
+       <view class="date">{{surveyInfo.publishTime}}</view>
   </view>
   <view class="divider"></view>
 <form bindsubmit='formsubmit'>

@@ -10,7 +10,7 @@ Page({
     surveyId: '',
     title: "",
     description: "",
-    needpaper: 0,
+    // needpaper: 0,
     anony:false,
     testlie:false,
     serverUrl: "",
@@ -18,7 +18,7 @@ Page({
     hidden2: true,
     date: dateFormat.formatDate(new Date()),
     nowTime: dateFormat.formatTimeNew(new Date()),
-    price:'',
+    // price:'',
   },
 
   bindDateChange(e) {
@@ -76,14 +76,14 @@ Page({
       var anony = e.detail.value.anony;
       var testlie = e.detail.value.testlie;
       var mintime = e.detail.value.mintime;
+      var date = e.detail.value.date;
+      var nowTime = e.detail.value.nowTime;
       var price;
       var surveyId = that.data.surveyId;
-      var v = that.data.date +" "+ that.data.nowTime;
+      var v = date +" "+ nowTime;
       var d=null;
-      if (that.data.hidden1 == true) {
-        d = "000";
-      }else{
-        d = new Date(v);
+      if (that.data.hidden1 != true) {
+        d = v;
       }
       if (that.data.hidden2 == true){
         price = 0;
@@ -196,7 +196,7 @@ Page({
       serverUrl: app.serverUrl,
       // date:date,
       // nowTime:time,
-      price: numFormat.formatMoney(that.data.price)
+      // price: numFormat.formatMoney(that.data.price)
     })
     var surveyId = that.data.surveyId;
     var serverUrl = that.data.serverUrl;
@@ -213,6 +213,11 @@ Page({
         var status = res.data.status;
         if (status == 200) {
           var data = res.data.data;
+          var date,time;
+          if (data.endTime!=null&&data.endTime!=undefined&&data.endTime!=""){
+            date = dateFormat.formatDate(data.endTime);
+            time = dateFormat.formatTimeNew(data.endTime);
+          }
           that.setData({
             title: data.title,
             description: data.description,
@@ -220,9 +225,9 @@ Page({
             testlie: data.testlie,
             anony: data.anony,
             price: numFormat.formatMoney(data.price),
-            date: dateFormat.formatDate(data.endTime),
-            nowTime: dateFormat.formatTimeNew(data.endTime),
-            
+            date: date,
+            nowTime: time,
+
           })
           var hidden1 = that.data.hidden1;
           var hidden2 = hidden2;
@@ -231,7 +236,7 @@ Page({
           } else {
             hidden2 = false;
           }
-          if (data.endTime == "1970-01-01T00:00:00.000+0000" || data.endTime == undefined||data.endTime == "" || data.endTime == " ") {
+          if (data.endTime == "1970-01-01T00:00:00.000+0000" || data.endTime == undefined || data.endTime == "" || data.endTime == " " || data.endTime == null) {
             hidden1 = true;
           } else {
             hidden1 = false;
