@@ -4,17 +4,19 @@ ec-canvas {
   height: 55%;
 }
 .chart {
-  position: absolute;
-  top: 10%;
+  /* position: absolute; */
+  /* top: 10%;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
 
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
+  box-sizing: border-box; */
+  width: 100%;
+  height:500rpx;
  
 } 
 .button-sp-area{
@@ -26,11 +28,123 @@ ec-canvas {
 page{
     background-color:white;
 }
-.mini-btn{
-  margin-right: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
+.mini-btn-self{
+ /* margin-top: 20rpx; */
+margin-left: 15rpx;
 }
+button{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.table {
+  border: 0px solid darkgray;
+  /* width: 90%;
+margin: 20rpx 5%; */
+
+
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* height: 2.5rem; */
+  align-items: center;
+}
+.bottom-radius{
+border-bottom-left-radius: 20rpx;
+border-bottom-right-radius: 20rpx;
+}
+
+.top-left-radius{
+border-top-left-radius: 20rpx;
+
+}
+.top-right-radius{
+border-top-right-radius: 20rpx;
+}
+.btn-group{
+padding-left: 50%;
+/* padding-top: 20rpx; */
+
+}
+
+ 
+        
+
+
+.td {
+    width:50%;
+    justify-content: center;
+    text-align: center;
+    padding: 10rpx;
+    display: flex
+}
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: #E6F3F9;
+}
+.th {
+  width: 50%;
+  justify-content: center;
+  background: #37A2DA;
+  color: #fff;
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+}
+
+.title{
+margin-bottom: 10rpx;
+
+}
+.type{
+  color: gray
+}
+.btn-one{
+  padding-left: 76%;
+  margin-top: -72rpx;
+}
+.answer{
+  padding: 20rpx 40rpx 40rpx 40rpx;
+
+}
+.box{
+  height: 0;
+  overflow: hidden;
+  /* position: absolute; */
+}
+.box-show{
+    height: auto;
+  /* width: 480rpx; */
+  /* border: 2rpx solid #d8d8d8; */
+    transform: translateY(0);
+  transition: .3s;
+    /* border-radius: 0 0 18rpx 18rpx ; */
+}
+.tr-none{
+  opacity: 0;
+  position: relative;
+  /* background-color: #FFFFFF;
+  line-height: 1.41176471;
+  font-size: 34rpx; */
+  transform: translateY(-50%);
+  transition: .3s;
+}
+.tr-show{
+  opacity: 1;
+  transform: translateY(0);
+}
+.red{
+  color: red;
+}
+.green{
+  color: green;
+}
+.text{
+  font-size: 30rpx;
+  color: #888;
+}
+
