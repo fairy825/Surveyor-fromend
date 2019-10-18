@@ -11,7 +11,7 @@
         </view>
         <view class="divider"></view>
         <view class=" item">必答题
-          <switch name="must" style="display: block;" checked="{{must}}" />
+          <switch name="must" style="display: block;" checked="{{must}}" bindchange="bindSwitchChange" />
         </view>
         <view class=" item">类型
           <radio-group name="type" bindchange="showans">
@@ -51,8 +51,8 @@
               </view>
               <view class="weui-cell__bd">
 
-                <picker name="uplimit" bindchange="bindChoiceMaxChange" value="{{scoreIndex}}" range="{{choices}}">
-                  <view style="text-align:right" class="weui-select weui-select_in-select-after">{{choices[scoreIndex]}}</view>
+                <picker name="uplimit" bindchange="bindChoiceMaxChange" value="{{uplimit}}" range="{{choices}}">
+                  <view style="text-align:right" class="weui-select weui-select_in-select-after">{{choices[uplimit]}}</view>
                 </picker>
               </view>
             </view>

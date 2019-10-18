@@ -1,5 +1,5 @@
 App({
-  serverUrl: "http://172.31.141.20:8080",
+  serverUrl: "http://172.30.208.129:8080",
   userInfo: null,
   isSaveRecord:null,
   search:null,

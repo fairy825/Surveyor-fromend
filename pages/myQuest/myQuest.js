@@ -129,7 +129,7 @@ Page({
                       console.log(res.data);
                       var status = res.data.status;
                       if (status == 200) {
-                        wx.redirectTo({
+                        wx.navigateTo({
                           url: '../myQuest/myQuest',
                         })
                       }
@@ -148,14 +148,14 @@ Page({
                 icon: 'none'
               })
             } else {
-              wx.redirectTo({
+              wx.navigateTo({
                 url: '../release/release?surveyId=' + surveyId,
               })
             }
             break;
           case 3:
-            wx.redirectTo({
-              url: '../result/result',
+            wx.navigateTo({
+              url: '../result/result?surveyId=' + surveyId,
             })
             break;
           case 4:

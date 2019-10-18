@@ -235,6 +235,7 @@ Page({
 
   onLoad: function (options) {
     var surveyId=options.surveyId
+    console.log("survey---",surveyId)
     // this.echartsComponnet = this.selectComponent('#mychart-dom-bar');
     this.getData(surveyId); //获取数据
   },
@@ -250,7 +251,7 @@ Page({
         'content-type': 'application/json', // 默认值
       },
       data: {
-        surveyId: '190929A4GTRT8A3C'
+        surveyId: surveyId
       },
       success(res) {
         console.log("---",res)

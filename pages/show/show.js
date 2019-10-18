@@ -91,22 +91,29 @@ Page({
     array = e.detail.value;
     var flag = false;
     var l = that.data.questionList.length;
-    // debugger;
-    // console.log(array."190928BNFBH68940");
-    // console.log(array.190928BNFBH68940);
-
+    var content="";
     for (var i = 0; i < l; i++) {
       var q = that.data.questionList[i];
       var s = q.id;
       if (q.must == true && q.type!="scale"&&array[s] == "") {
         flag = true;
+        content ="未回答完问卷";
         break;
+      }
+      if (q.type == "many"){
+        console.log("len");
+        console.log(array[s].length);
+        if (array[s].length < q.lowlimit || array[s].length > q.uplimit){
+          flag = true;
+          content = "第"+(i*1+1)+"题只能选" + q.lowlimit + "-" +q.uplimit+"个选项";
+          break;
+        }
       }
     }
     if (flag) {
       wx.showModal({
         title: '提交失败',
-        content: '未回答完问卷',
+        content: content,
         showCancel: false,
         confirmText: '确定'
       })

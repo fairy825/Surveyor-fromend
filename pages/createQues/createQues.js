@@ -3,20 +3,20 @@ const app = getApp()
 Page({
   data: {
     surveyId: '',
-    questionId:'',
-    hide:false,
+    questionId: '',
+    hide: false,
     hidden1: false,
     hidden2: false,
     choiceNum: 2,
     type: "",
     array: [1, 1], //默认显示一个
     inputVal: [], //所有input的内容
-    choices: ["不限", "1", "2"],
+    choices: ["0", "1", "2"],
     uplimit: 0,
     lowlimit: 0,
-    scores: ["5", "6", "7", "8", "9","10"],
+    scores: ["5", "6", "7", "8", "9", "10"],
     scoreIndex: 0,
-    upscale:0,
+    upscale: 0,
     content: '',
     must: true,
   },
@@ -48,8 +48,8 @@ Page({
           console.log(res.data);
           var data = res.data.data;
           var val = [];
-          var choicea = data.choicea; 
-          if (choicea != "" && choicea != undefined && choicea != null)  val.push(choicea);
+          var choicea = data.choicea;
+          if (choicea != "" && choicea != undefined && choicea != null) val.push(choicea);
           var choiceb = data.choiceb;
           if (choiceb != "" && choiceb != undefined && choiceb != null) val.push(choiceb);
           var choicec = data.choicec;
@@ -58,7 +58,7 @@ Page({
           if (choiced != "" && choiced != undefined && choiced != null) val.push(choiced);
           var choicee = data.choicee;
           if (choicee != "" && choicee != undefined && choicee != null) val.push(choicee);
-          
+
           that.setData({
             inputVal: val,
             surveyId: data.surveyid,
@@ -67,23 +67,23 @@ Page({
             must: data.must,
             upscale: data.upscale,
             lowlimit: data.lowlimit,
-            scoreIndex: data.upscale*1-5,
+            uplimit: data.uplimit,
+            scoreIndex: data.upscale * 1 - 5,
           })
           var hide = false;
           var inputVal = that.data.inputVal;
-          var choices = ['不限'];
+          var choices = ['0'];
           var choiceNum = inputVal.length;
           var array = [];
           console.log(that.data.inputVal);
-          for (var i = 0; i < choiceNum;i++)
-          {
+          for (var i = 0; i < choiceNum; i++) {
             if (inputVal[i] == '其他') {
               hide = true;
               array.push(2);
-            }else{
+            } else {
               array.push(1);
             }
-            choices.push(i+1);
+            choices.push(i + 1);
           }
           that.setData({
             hide: hide,
@@ -95,8 +95,29 @@ Page({
           console.log(that.data.array);
           console.log(that.data.choices);
         }
-        
+
       })
+    }
+  },
+  bindSwitchChange: function(e) {
+    var that = this;
+    that.setData({
+      must: e.detail.value
+    })
+    console.log("must" + that.data.must);
+    if (that.data.must == true && that.data.type == "many") {
+      var lowlimit = that.data.lowlimit;
+      if (lowlimit == 0) {
+        lowlimit = 1;
+        wx.showToast({
+          title: '多选题作为必答题时最少要选择一个选项',
+          icon: 'none',
+          duration: 1000
+        });
+        that.setData({
+          lowlimit: lowlimit
+        })
+      }
     }
   },
   //获取input的值
@@ -130,10 +151,10 @@ Page({
     this.setData({
       array: old,
       choiceNum: this.data.choiceNum + 1,
-      hide:true
+      hide: true
     })
     // var nowIdx = e.currentTarget.dataset.idx; //获取当前索引
-    var nowIdx = this.data.choiceNum-1;
+    var nowIdx = this.data.choiceNum - 1;
     var oldVal = this.data.inputVal;
     oldVal[nowIdx] = "其他"; //修改对应索引值的内容
     this.setData({
@@ -160,18 +181,31 @@ Page({
     })
   },
   bindChoiceMinChange: function(e) {
-    this.setData({
+    var that = this;
+    that.setData({
       lowlimit: e.detail.value
     })
+    if(that.data.must==true&&that.data.type=="many"&&that.data.lowlimit==0){
+      var lowlimit = 1;
+      wx.showToast({
+        title: '多选题作为必答题时最少要选择一个选项',
+        icon: 'none',
+        duration: 1000
+      });
+      that.setData({
+        lowlimit: lowlimit
+      })
+    }
     console.log("lowlimit:" + this.data.lowlimit)
 
   },
   bindChoiceMaxChange: function(e) {
     this.setData({
-      upscale: e.detail.value
+      uplimit: e.detail.value
     })
-    console.log("upscale:" + this.data.upscale)
+    console.log("uplimit:" + this.data.uplimit)
   },
+
   bindScoreChange: function(e) {
     this.setData({
       scoreIndex: e.detail.value
@@ -188,17 +222,17 @@ Page({
   },
   formsubmit(e) {
     var option = e.detail.value.option;
-    console.log("option:"+option);
+    console.log("option:" + option);
     var that = this;
     var surveyId = that.data.surveyId;
-    console.log("surveyId in submit:"+surveyId);
+    console.log("surveyId in submit:" + surveyId);
     var flag = false;
     var content = e.detail.value.content;
     var must = e.detail.value.must;
     var qtype = e.detail.value.type;
     var scoreIndex = e.detail.value.scoreIndex;
     var msg = "";
-    
+
     if (!content.length) {
       msg = '未填写问题';
     } else if (!qtype.length) {
@@ -214,7 +248,7 @@ Page({
           msg = '选项未填写完整';
           break;
         }
-    } else if ((qtype == "one" || qtype == "many") &&that.data.choiceNum < 2) {
+    } else if ((qtype == "one" || qtype == "many") && that.data.choiceNum < 2) {
       msg = '缺少选项';
     }
 
@@ -222,8 +256,9 @@ Page({
     var questionId = that.data.questionId;
     if (msg == "") {
       var serverUrl = app.serverUrl;
-      var upscale = that.data.scoreIndex*1+5;
+      var upscale = that.data.scoreIndex * 1 + 5;
       var lowlimit = that.data.lowlimit;
+      var uplimit = that.data.uplimit;
       var choicea = that.data.inputVal[0];
       var choiceb = that.data.inputVal[1];
       var choicec = that.data.inputVal[2];
@@ -251,6 +286,7 @@ Page({
             choicee: choicee,
             upscale: upscale,
             lowlimit: lowlimit,
+            uplimit: uplimit,
           },
           success(res) {
             console.log(res.data);
@@ -295,6 +331,7 @@ Page({
             choicee: choicee,
             upscale: upscale,
             lowlimit: lowlimit,
+            uplimit: uplimit,
           },
           success(res) {
             console.log(res.data);
