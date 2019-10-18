@@ -33,7 +33,7 @@ Page({
     var userInfo = app.getGlobalUserInfo();
 
     wx.request({
-      url: serverUrl + '/question/queryAll?surveyId=' + that.data.surveyId + '&userId=' + userInfo.id,
+      url: serverUrl + '/question/queryAll?surveyId=' + that.data.surveyId + '&userId=' + userInfo.id+'&page='+page,
       method: 'POST',
       header: {
         'content-type': 'application/json', // 默认值
@@ -50,6 +50,7 @@ Page({
             questionList: []
           });
         }
+        console.log(page);
         console.log(res.data.data.rows);
         var questionList = res.data.data.rows;
         console.log("questionList " + questionList);
@@ -97,7 +98,7 @@ Page({
     for (var i = 0; i < l; i++) {
       var q = that.data.questionList[i];
       var s = q.id;
-      if (q.must == true && array[s] == "") {
+      if (q.must == true && q.type!="scale"&&array[s] == "") {
         flag = true;
         break;
       }
@@ -147,20 +148,40 @@ Page({
               title: res.data.msg,
               icon: 'none',
               duration: 2000,
-              success: function () {
-                console.log('haha');
-                setTimeout(function () {
-                  //要延时执行的代码
-                  wx.switchTab({
-                    url: '../messages/messages',
-                  })
-                }, 2000) 
-              }
+              // success: function () {
+              //   console.log('haha');
+              //   setTimeout(function () {
+              //     //要延时执行的代码
+              //     wx.switchTab({
+              //       url: '../messages/messages',
+              //     })
+              //   }, 2000) 
+              // }
             });
            
           }
         }
       })
     }
-  }
+  },
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading();
+    this.getAllQuestionList(1) ;
+  },
+  onReachBottom: function () {
+    var that = this;
+    wx.showLoading({
+      title: '请等待',
+    })
+    var currentPage = that.data.page;
+    var totalPage = that.data.totalPage;
+    if (currentPage == totalPage) {
+      console.log("reach bottom");
+      wx.hideLoading();
+
+      return;
+    }
+    var page = currentPage + 1;
+    that.getAllQuestionList(page);
+  },
 })

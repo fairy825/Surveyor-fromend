@@ -102,7 +102,7 @@ Page({
                 icon: 'none'
               })
             }else{
-            wx.redirectTo({
+            wx.navigateTo({
               url: '../edit/edit?surveyId=' + surveyId,
             })
             }
@@ -116,7 +116,7 @@ Page({
               success(res) {
                 if (res.confirm) {
                   wx.request({
-                    url: serverUrl + '/survey/update',
+                    url: serverUrl + '/survey/stopAndStart',
                     data: {
                       id: surveyId,
                       status: 3 - status

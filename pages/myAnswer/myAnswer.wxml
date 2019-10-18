@@ -10,7 +10,7 @@
         </view>
         <view class='itemright'>
           <view class="num">答题金额</view>
-          <view class="money">￥{{num.formatMoney(item.price/item.needpaper)}}</view>
+          <view class="money">{{num.formatMoney(item.price/item.needpaper)}}点</view>
         </view>
       </view>
     </view>

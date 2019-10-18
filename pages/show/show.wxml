@@ -7,7 +7,7 @@
        <text class="title">{{surveyInfo.title}}</text>
        <text class="summary">{{surveyInfo.description}}</text>
      </view>
-       <view class="money">￥{{num.formatMoney(surveyInfo.price/surveyInfo.needpaper)}}</view>
+       <view class="money">{{num.formatMoney(surveyInfo.price/surveyInfo.needpaper)}}点</view>
        <view class="date">{{surveyInfo.publishTime}}</view>
   </view>
   <view class="divider"></view>
@@ -44,8 +44,8 @@
             </view>
       </view>
       <view wx:else class="queschoice">
-        <view class="upper"><text class="former">({{item.lowscale}})</text><text class="later">({{item.upscale}})</text></view>
-        <view><slider name="{{item.id}}" bindchange="sliderChange" show-value min="{{item.lowscale}}" max="{{item.upscale}}"/></view>
+        <view class="upper"><text class="former">(0)</text><text class="later">({{item.upscale}})</text></view>
+        <view><slider name="{{item.id}}" bindchange="sliderChange" show-value min="0" max="{{item.upscale}}"/></view>
       </view>
       
     </view>

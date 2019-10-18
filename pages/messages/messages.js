@@ -24,7 +24,7 @@ Page({
     var surveyInfo = JSON.stringify(surveyList[arrindex]);
     console.log(surveyInfo);
 
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../show/show?surveyInfo=' + surveyInfo,
     })
   },

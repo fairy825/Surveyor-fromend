@@ -20,7 +20,7 @@
           <view wx:if="{{item.desc!=null}}" class="summary">{{item.description}}</view>
           <!-- <text wx:else class="summary">{{item.desc}}</text> -->
         </view>
-        <view class="money">￥{{num.formatMoney(item.price/item.needpaper)}}</view>
+        <view class="money">{{num.formatMoney(item.price/item.needpaper)}}点</view>
         <!-- <view class="date">{{tools.dateFormat(item.publishTime)}}</view> -->
         <view class="date">{{item.publishTime}}</view>
       <!-- </navigator> -->

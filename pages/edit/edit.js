@@ -58,7 +58,7 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: serverUrl + '/survey/update',
+              url: serverUrl + '/survey/publish',
               method: 'POST',
               header: {
                 'content-type': 'application/json', // 默认值
@@ -74,7 +74,7 @@ Page({
                 if (status == 200) {
 
                   wx.reLaunch({
-                    url: '../release/release?surveyId=' + res.data.data.id,
+                    url: '../release/release?surveyId=' + that.data.surveyId,
                   })
                 }
               }
@@ -85,7 +85,7 @@ Page({
     } else {
       wx.showToast({
         title: '缺少题目',
-        icon: 'alert',
+        icon: 'none',
         duration: 1000
       });
     }
@@ -118,46 +118,13 @@ Page({
       }
     })
     that.getAllQuestionList(1);
-    // wx.request({
-    //   url: serverUrl + '/question/queryAll?surveyId=' + surveyId,
-    //   method: 'POST', 
-    //   header: {
-    //     'content-type': 'application/json', // 默认值
-    //   },
-
-    //   success(res) {
-    //     console.log(res.data);
-    //     // wx.hideLoading();
-    //     wx.hideNavigationBarLoading();
-    //     wx.stopPullDownRefresh();
-    //     var status = res.data.status;
-    //     if (page === 1) {
-    //       that.setData({
-    //         questionList: []
-    //       });
-    //     }
-    //     console.log(res.data.data.rows);
-    //     var questionList = res.data.data.rows;
-    //     console.log("questionList " + questionList);
-
-    //     var newQuestionList = that.data.questionList;
-
-    //     that.setData({
-    //       questionList: newQuestionList.concat(questionList),
-    //       page: page,
-    //       totalPage: res.data.data.total,
-    //       serverUrl: serverUrl
-    //     });
-    //     console.log(that.data.questionList);
-    //   }
-
-    // })
+    
   },
   getAllQuestionList: function (page) {
     var that = this;
     var serverUrl = app.serverUrl;
     wx.request({
-      url: serverUrl + '/question/queryAllEasy?surveyId=' + that.data.surveyId,
+      url: serverUrl + '/question/queryAllEasy?surveyId=' + that.data.surveyId+'&page='+page,
       method: 'POST',
       header: {
         'content-type': 'application/json', // 默认值
@@ -191,16 +158,23 @@ Page({
 
     })
   },
+  onPullDownRefresh: function () {
+    wx.showNavigationBarLoading();
+    this.getAllQuestionList(1);
+  },
   onReachBottom: function () {
     var that = this;
-
+    wx.showLoading({
+      title: '请等待',
+    })
     var currentPage = that.data.page;
     var totalPage = that.data.totalPage;
     if (currentPage == totalPage) {
       console.log("reach bottom");
+      wx.hideLoading();
       return;
     }
     var page = currentPage + 1;
-    that.getAllSurveyList(page, 0);
+    that.getAllQuestionList(page);
   },
 })

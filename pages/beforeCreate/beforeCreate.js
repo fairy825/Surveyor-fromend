@@ -227,7 +227,7 @@ Page({
             price: numFormat.formatMoney(data.price),
             date: date,
             nowTime: time,
-
+            mintime: data.mintime
           })
           var hidden1 = that.data.hidden1;
           var hidden2 = hidden2;

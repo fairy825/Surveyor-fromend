@@ -15,17 +15,18 @@
     <view class="weui-cells__title">题目</view>
     <view class="weui-cells weui-cells_after-title">
       <block wx:for="{{questionList}}" wx:key="{{item.id}}">
-        <view class="weui-cell weui-cell_access">
+        <view class="weui-cell weui-cell_access" >
           <view class="weui-cell__ft" bindtap='deleteQuestion' data-idx='{{item.id}}'>
             <image src="../../assets/minus.png"></image>
           </view>
-          <view class="weui-cell__bd">
+          <view class="weui-cell__bd question" >
             <navigator open-type="redirect" url="/pages/createQues/createQues?questionId={{item.id}}">
-              {{index+1}}.{{item.content}}
-              <label>
+             <label>
                 <text wx:if="{{item.must==true}}" style='color:red'>*</text>
                 <text style="font-size:30rpx">({{item.typeDesc}})</text>
               </label>
+              {{index+1}}.{{item.content}}
+             
             </navigator>
           </view>
           <view class="weui-cell__ft weui-cell__ft_in-access"></view>

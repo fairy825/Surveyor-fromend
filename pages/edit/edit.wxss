@@ -1,6 +1,11 @@
  .cells {
   margin-top: 20rpx;
 }
+.question{
+  overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
 .weui-cell image{
   height:50rpx;
   width:50rpx;

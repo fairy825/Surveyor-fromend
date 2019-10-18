@@ -14,8 +14,9 @@ Page({
     choices: ["不限", "1", "2"],
     uplimit: 0,
     lowlimit: 0,
-    formats: ["无", "数字", "整数", "邮箱", "手机号"],
-    formatIndex: 0,
+    scores: ["5", "6", "7", "8", "9","10"],
+    scoreIndex: 0,
+    upscale:0,
     content: '',
     must: true,
   },
@@ -64,8 +65,9 @@ Page({
             content: data.content,
             type: data.type,
             must: data.must,
-            uplimit: data.uplimit,
-            lowlimit: data.lowlimit
+            upscale: data.upscale,
+            lowlimit: data.lowlimit,
+            scoreIndex: data.upscale*1-5,
           })
           var hide = false;
           var inputVal = that.data.inputVal;
@@ -166,14 +168,16 @@ Page({
   },
   bindChoiceMaxChange: function(e) {
     this.setData({
-      uplimit: e.detail.value
+      upscale: e.detail.value
     })
-    console.log("uplimit:" + this.data.uplimit)
+    console.log("upscale:" + this.data.upscale)
   },
-  bindFormatChange: function(e) {
+  bindScoreChange: function(e) {
     this.setData({
-      formatIndex: e.detail.value
+      scoreIndex: e.detail.value
     });
+    console.log("scoreIndex:" + this.data.scoreIndex)
+
   },
   showans: function(e) {
     console.log(e);
@@ -192,7 +196,9 @@ Page({
     var content = e.detail.value.content;
     var must = e.detail.value.must;
     var qtype = e.detail.value.type;
+    var scoreIndex = e.detail.value.scoreIndex;
     var msg = "";
+    
     if (!content.length) {
       msg = '未填写问题';
     } else if (!qtype.length) {
@@ -208,7 +214,7 @@ Page({
           msg = '选项未填写完整';
           break;
         }
-    } else if (that.data.choiceNum < 2) {
+    } else if ((qtype == "one" || qtype == "many") &&that.data.choiceNum < 2) {
       msg = '缺少选项';
     }
 
@@ -216,13 +222,15 @@ Page({
     var questionId = that.data.questionId;
     if (msg == "") {
       var serverUrl = app.serverUrl;
-      var uplimit = that.data.uplimit;
+      var upscale = that.data.scoreIndex*1+5;
       var lowlimit = that.data.lowlimit;
       var choicea = that.data.inputVal[0];
       var choiceb = that.data.inputVal[1];
       var choicec = that.data.inputVal[2];
       var choiced = that.data.inputVal[3];
       var choicee = that.data.inputVal[4];
+      console.log("upscale" + upscale);
+
       if (questionId == null || questionId == '' || questionId == undefined) {
         console.log("add");
 
@@ -241,8 +249,8 @@ Page({
             choicec: choicec,
             choiced: choiced,
             choicee: choicee,
-            uplimit:uplimit,
-            lowlimit: lowlimit
+            upscale: upscale,
+            lowlimit: lowlimit,
           },
           success(res) {
             console.log(res.data);
@@ -285,8 +293,8 @@ Page({
             choicec: choicec,
             choiced: choiced,
             choicee: choicee,
-            uplimit: uplimit,
-            lowlimit: lowlimit
+            upscale: upscale,
+            lowlimit: lowlimit,
           },
           success(res) {
             console.log(res.data);

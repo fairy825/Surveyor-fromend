@@ -15,8 +15,9 @@
          <view class="withdraw">
            <text class="withdrawcolumn">提现金额</text>
            <view class="withdrawunder">
-             <text class="withdrawyuan">￥</text>
              <input class="withdrawsum" name="digit" type="digit" bindinput="checksum" value="{{withdraw}}"/>
+                          <text class="withdrawyuan">点</text>
+
            </view>
            <view class="withdrawbelow"></view>
            <text class="submitall" bindtap="allsubmit">全部提现</text>
