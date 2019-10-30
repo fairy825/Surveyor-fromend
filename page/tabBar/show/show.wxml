@@ -1,0 +1,58 @@
+<wxs src="../../../utils/num.wxs" module="num" />
+<wxs src="../../../utils/date.wxs" module="tools" />
+
+<view class="page">
+  <view class="head" >
+     <view class="itemleft">
+       <text class="title">{{surveyInfo.title}}</text>
+       <text class="summary">{{surveyInfo.description}}</text>
+     </view>
+       <view class="money">{{num.formatMoney(surveyInfo.price/surveyInfo.needpaper)}}点</view>
+       <view class="date">{{surveyInfo.publishTime}}</view>
+  </view>
+  <view class="divider"></view>
+<form bindsubmit='formsubmit'>
+  <view class="content">
+  <block  wx:for="{{questionList}}" wx:key="id">
+    <view class="q">
+      <view class="queshead">{{index+1}}.{{item.content}}
+        <text wx:if="{{item.must==true}}" style='color:red'>*</text>
+        <text wx:if="{{item.type=='many'}}">(可选{{item.lowlimit}}至{{item.uplimit}}项)</text>
+      </view>
+
+      <view wx:if="{{item.type=='one'}}" class="queschoice">
+        <radio-group name="{{item.id}}" class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{item.choices}}" wx:for-item="choice" wx:key="*this">
+            <view><radio data-idx='{{index}}' value="{{index}}"/>{{choice}}</view>
+          </label>
+        </radio-group>
+      </view>
+      <view wx:elif="{{item.type=='many'}}" class="queschoice">
+        <view class="weui-cell">
+          <checkbox-group name="{{item.id}}" bindchange="checkboxChange">
+            <label class="checkbox" wx:for="{{item.choices}}" wx:for-item="choice" wx:key="*this">
+            <view><checkbox data-idx='{{index}}' value="{{index}}"/>{{choice}}</view>
+            </label>
+          </checkbox-group>
+        </view>
+      </view>
+      <view wx:elif="{{item.type=='fill'}}" class="quesblank">
+        <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea name="{{item.id}}" class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" />
+                    <view class="weui-textarea-counter">0/200</view>
+                </view>
+            </view>
+      </view>
+      <view wx:else class="queschoice">
+        <view class="upper"><text class="former">(0)</text><text class="later">({{item.upscale}})</text></view>
+        <view><slider name="{{item.id}}" bindchange="sliderChange" show-value min="0" max="{{item.upscale}}"/></view>
+      </view>
+      
+    </view>
+    <view class="divider"></view>
+  </block>
+  </view>
+  <view class="button"><button class="new" formType='submit' bindtap="checkname">提交</button></view>
+</form>
+</view>

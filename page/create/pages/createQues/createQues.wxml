@@ -1,0 +1,125 @@
+<view class="page">
+  <view class="container">
+    <view class="cells">
+      <form bindsubmit='formsubmit'>
+        <view class="inputwenjuan">
+          <view class="smallinput">
+            <text>问题 </text>
+            <text style='color:red'>*</text>
+            <input name="content" placeholder="请输入问题" value="{{content}}" />
+          </view>
+        </view>
+        <view class="divider"></view>
+        <view class=" item">必答题
+          <switch name="must" style="display: block;" checked="{{must}}" bindchange="bindSwitchChange" />
+        </view>
+        <view class=" item">类型
+          <radio-group name="type" bindchange="showans">
+            <label>
+              <radio value="one" checked="{{type=='one'}}" /> 单选
+            </label>
+            <label>
+              <radio value="many" checked="{{type=='many'}}" /> 多选
+            </label>
+            <label>
+              <radio value="fill" checked="{{type=='fill'}}" /> 填空
+            </label>
+            <label>
+              <radio value="scale" checked="{{type=='scale'}}" /> 量表
+            </label>
+          </radio-group>
+        </view>
+
+        <view class="hiddenitem" hidden="{{type!='many'}}">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">最少选择</view>
+              </view>
+              <view class="weui-cell__bd">
+
+                <picker name="lowlimit" bindchange="bindChoiceMinChange" value="{{lowlimit}}" range="{{choices}}">
+                  <view style="text-align:right" class="weui-select weui-select_in-select-after">{{choices[lowlimit]}}</view>
+                </picker>
+              </view>
+            </view>
+          </view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">最多选择</view>
+              </view>
+              <view class="weui-cell__bd">
+
+                <picker name="uplimit" bindchange="bindChoiceMaxChange" value="{{uplimit}}" range="{{choices}}">
+                  <view style="text-align:right" class="weui-select weui-select_in-select-after">{{choices[uplimit]}}</view>
+                </picker>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="hiddenitem" hidden="{{type!='one'&&type!='many'}}">
+          <block wx:for='{{array}}' wx:key=''>
+            <view class="grey">
+              <view class="weui-cell weui-cell_input">
+                <view wx:if="{{item==2}}" class="weui-cell__bd">
+                  <input name="option" type='text' data-idx='{{index}}' value='其他' disabled="disabled" />
+                </view>
+                <view wx:else class="weui-cell__bd">
+                  <view class="weui-cell__bd">
+                    <input name="option" type='text' placeholder='输入选项' data-idx='{{index}}' value='{{inputVal[index]}}' bindinput='getInputVal' />
+                  </view>
+                </view>
+                <view class="weui-cell__ft" bindtap='delInput' data-idx='{{index}}'>
+                  <image src="/assets/minus.png"></image>
+                </view>
+              </view>
+            </view>
+          </block>
+          <view class="grey">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                <label bindtap="addInput">
+                  <image src="/assets/plus.png"></image>
+                  <text>添加选项</text>
+                </label>
+              </view>
+            </view>
+          </view>
+          <view class="grey" hidden="{{hide}}">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                <label bindtap="addblank">
+                  <image src="/assets/plus.png"></image>
+                  <text>添加其他</text>
+                </label>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="hiddenitem" hidden="{{type!='fill'}}">
+          
+        </view>
+
+        <view class="hiddenitem" hidden="{{type!='scale'}}">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">最高分</view>
+
+              </view>
+              <view class="weui-cell__bd">
+
+                <picker bindchange="bindScoreChange" value="{{scoreIndex}}" range="{{scores}}">
+                  <view style="text-align:right" class="weui-select weui-select_in-select-after">{{scores[scoreIndex]}}</view>
+                </picker>
+              </view>
+            </view>
+          </view>
+        </view>
+        <button class="new" formType='submit' bindtap="checkQues">保存</button>
+      </form>
+    </view>
+  </view>
+</view>

@@ -1,20 +1,37 @@
 {
   "pages": [
-    "pages/login/login",
-    "pages/index/index",
-    "pages/release/release",
-    "pages/show/show",
-    "pages/myAnswer/myAnswer",
-    "pages/myQuest/myQuest",
-    "pages/beforeCreate/beforeCreate",
-    "pages/messages/messages",
-    "pages/searchVideo/searchVideo",
-    "pages/profile/profile",
-    "pages/regist/regist",
-    "pages/result/result",
-    "pages/edit/edit",
-    "pages/createQues/createQues",
-    "pages/myPacket/myPacket"
+    "page/tabBar/index/index",
+    "page/tabBar/login/login",
+    "page/tabBar/messages/messages",
+    "page/tabBar/profile/profile",
+    "page/tabBar/regist/regist",
+    "page/tabBar/show/show"
+  ],
+  "subpackages": [
+    {
+      "root": "page/analysis/",
+      "pages": [
+        "pages/result/result"
+      ]
+    },
+    {
+      "root": "page/info/",
+      "pages": [
+        "pages/myPacket/myPacket",
+        "pages/myQuest/myQuest",
+        "pages/myAnswer/myAnswer",
+        "pages/searchVideo/searchVideo"
+      ]
+    },
+    {
+      "root": "page/create/",
+      "pages": [
+        "pages/createQues/createQues",
+        "pages/beforeCreate/beforeCreate",
+        "pages/edit/edit",
+        "pages/release/release"
+      ]
+    }
   ],
   "window": {
     "navigationBarBackgroundColor": "#3a4861",
@@ -25,6 +42,7 @@
     "enablePullDownRefresh": true,
     "onReachBottomDistance": 50
   },
+  "debug": false,
   "tabBar": {
     "color": "#999",
     "selectedColor": "#444",
@@ -32,19 +50,19 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "page/tabBar/index/index",
         "text": "首页",
         "iconPath": "assets/home.png",
         "selectedIconPath": "assets/home-actived.png"
       },
       {
-        "pagePath": "pages/messages/messages",
+        "pagePath": "page/tabBar/messages/messages",
         "text": "发现",
         "iconPath": "assets/safari.png",
         "selectedIconPath": "assets/safari-actived.png"
       },
       {
-        "pagePath": "pages/profile/profile",
+        "pagePath": "page/tabBar/profile/profile",
         "text": "我的",
         "iconPath": "assets/profile.png",
         "selectedIconPath": "assets/profile-actived.png"
