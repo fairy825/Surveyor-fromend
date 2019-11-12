@@ -1,7 +1,7 @@
 {
   "pages": [
-    "page/tabBar/index/index",
     "page/tabBar/login/login",
+    "page/tabBar/index/index",
     "page/tabBar/messages/messages",
     "page/tabBar/profile/profile",
     "page/tabBar/regist/regist",

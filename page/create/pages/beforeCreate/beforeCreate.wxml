@@ -49,10 +49,10 @@
 
     <view class=" item">
       <label>设置最短答题时间<text style='color:red'>*</text></label>
-      <view><input name="mintime" value="{{mintime}}" placeholder="1" type="number" class="need"/><text>分钟</text></view>
+      <view><input name="mintime" value="{{mintime}}" placeholder="0" type="number" class="need"/><text>分钟</text></view>
     </view>
 
-    <view class=" item">发布红包<switch name="redbag" checked="{{!hidden2}}" style="display: block;"  bindchange="haveredbag"/></view>
+    <view class=" item">设置点数<switch name="redbag" checked="{{!hidden2}}" style="display: block;"  bindchange="haveredbag"/></view>
     <view class="hiddenitem" hidden="{{hidden2}}">
        <view class="grey">
         <view class="weui-cell weui-cell_input">

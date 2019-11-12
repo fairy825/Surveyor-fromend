@@ -71,6 +71,7 @@ Page({
     var userInfo = app.getGlobalUserInfo();
     var array = new Array();
     array = e.detail.value;
+    console.log("e:",e.detail.value);
     var flag = false;
     var l = that.data.questionList.length;
     var content="";

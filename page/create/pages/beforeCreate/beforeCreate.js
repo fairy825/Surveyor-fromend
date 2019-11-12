@@ -203,10 +203,12 @@ Page({
         var status = res.data.status;
         if (status == 200) {
           var data = res.data.data;
-          var date,time;
+          var date,time,year,month,day;
           if (data.endTime!=null&&data.endTime!=undefined&&data.endTime!=""){
-            date = dateFormat.formatDate(data.endTime);
-            time = dateFormat.formatTimeNew(data.endTime);
+            console.log(data.endTime);
+            var date1 = new Date(data.endTime.replace(/\-/g, "/"));
+            date = dateFormat.formatDate(date1);
+            time = dateFormat.formatTimeNew(date1);
           }
           that.setData({
             title: data.title,
@@ -217,6 +219,9 @@ Page({
             price: numFormat.formatMoney(data.price),
             date: date,
             nowTime: time,
+            year:year,
+            month:month,
+            day:day,
             mintime: data.mintime
           })
           var hidden1 = that.data.hidden1;
