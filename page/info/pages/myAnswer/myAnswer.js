@@ -23,15 +23,31 @@ Page({
       url: serverUrl + '/answer/queryMySurvey?userId=' + userInfo.id+'&page=' + page,
       method: 'POST',
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json',
+        headerUserId: userInfo.id,
+        headerUserToken: userInfo.userToken
       },
       success(res) {
         console.log(res.data);
+        if (res.data.status != 200) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/page/tabBar/login/login',
+                })
+              }, 2000);
+            }
+          })
+        }
         wx.hideLoading();
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
         var status = res.data.status;
-        if (page === 1) {
+        if (page == 1) {
           that.setData({
             answerList: []
           });

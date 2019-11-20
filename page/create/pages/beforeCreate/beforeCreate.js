@@ -78,6 +78,8 @@ Page({
       var surveyId = that.data.surveyId;
       var v = date +" "+ nowTime;
       var d=null;
+      var user = app.getGlobalUserInfo();
+
       if (that.data.hidden1 != true) {
         d = v;
       }
@@ -101,7 +103,9 @@ Page({
             mintime:mintime,
           },
           header: {
-            'content-type': 'application/json' // 默认值
+            'content-type': 'application/json', // 默认值
+            headerUserId: user.id,
+            headerUserToken: user.userToken
           },
           success(res) {
             console.log(res.data);
@@ -120,15 +124,21 @@ Page({
               wx.redirectTo({
                 url: '../edit/edit?surveyId=' + surveyId,
               })
-            } else if (status == 502) {
+            } else if (status == 502){
+
               wx.showToast({
                 title: res.data.msg,
-                icon: "none"
-              });
-              wx.redirectTo({
-                url: '/page/tabBar/login/login',
+                icon: 'none',
+                duration: 1000,
+                success: function () {
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/page/tabBar/login/login',
+                    })
+                  }, 2000);
+                }
               })
-            } else {
+            }  else {
               wx.showToast({
                 title: '创建失败',
                 icon: 'none',

@@ -236,6 +236,7 @@ Page({
       var choicec = that.data.inputVal[2];
       var choiced = that.data.inputVal[3];
       var choicee = that.data.inputVal[4];
+      var user = app.getGlobalUserInfo();
 
       if (questionId == null || questionId == '' || questionId == undefined) {
         wx.request({
@@ -243,6 +244,8 @@ Page({
           method: 'POST',
           header: {
             'content-type': 'application/json', // 默认值
+            headerUserId: user.id,
+            headerUserToken: user.userToken
           },
           data: {
             content: content,
@@ -270,7 +273,20 @@ Page({
               wx.redirectTo({
                 url: '../edit/edit?surveyId=' + surveyId,
               })
-            } else {
+            } else if(status==502){
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 1000,
+                success: function () {
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/page/tabBar/login/login',
+                    })
+                  }, 2000);
+                }
+              })
+            }else {
               wx.showModal({
                 title: '创建失败',
                 showCancel: false,
@@ -284,7 +300,9 @@ Page({
           url: serverUrl + '/question/update',
           method: 'POST',
           header: {
-            'content-type': 'application/json', // 默认值
+            'content-type': 'application/json', 
+            headerUserId: user.id,
+            headerUserToken: user.userToken
           },
           data: {
             id: questionId,
@@ -314,7 +332,21 @@ Page({
                 url: '../edit/edit?surveyId=' + surveyId,
               })
 
-            } else {
+            } else if(status==502){
+
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 1000,
+                success: function () {
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/page/tabBar/login/login',
+                    })
+                  }, 2000);
+                }
+              })
+            }else {
               wx.showModal({
                 title: '创建失败',
                 content: msg,

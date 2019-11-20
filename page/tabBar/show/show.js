@@ -101,12 +101,15 @@ Page({
     } else {
       var serverUrl = that.data.serverUrl;
       var surveyId = that.data.surveyId;
+      var user = app.getGlobalUserInfo();
 
       wx.request({
         url: serverUrl + '/answer/upload?userId=' + userInfo.id + '&surveyId=' + surveyId,
         method: 'POST',
         header: {
           'content-type': 'application/json', // 默认值
+          headerUserId: user.id,
+          headerUserToken: user.userToken
         },
         data: {
           answ: array

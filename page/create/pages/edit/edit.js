@@ -20,12 +20,15 @@ Page({
       success: function (res) {
         if (res.confirm) {
           var nowidx = e.currentTarget.dataset.idx; //当前索引
+          var user = app.getGlobalUserInfo();
 
           wx.request({
             url: serverUrl + '/question/delete?id=' + nowidx,
             method: 'POST',
             header: {
-              'content-type': 'application/json' // 默认值
+              'content-type': 'application/json',
+              headerUserId: user.id,
+              headerUserToken: user.userToken
             },
             success(res) {
               console.log(res.data);
@@ -34,7 +37,22 @@ Page({
                 wx.redirectTo({
                   url: '../edit/edit?surveyId=' + that.data.surveyId
                 })
+              } else {
+
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'none',
+                  duration: 1000,
+                  success: function () {
+                    setTimeout(function () {
+                      wx.reLaunch({
+                        url: '/page/tabBar/login/login',
+                      })
+                    }, 2000);
+                  }
+                })
               }
+
             }
           })
         } else if (res.cancel) {
@@ -45,6 +63,7 @@ Page({
   checkPublish: function(e) {
     var that = this;
     var serverUrl = app.serverUrl;
+    var user = app.getGlobalUserInfo();
     if (that.data.questionList.length) {
       wx.showModal({
         title: '保存成功',
@@ -57,7 +76,9 @@ Page({
               url: serverUrl + '/survey/publish',
               method: 'POST',
               header: {
-                'content-type': 'application/json', // 默认值
+                'content-type': 'application/json', 
+                headerUserId: user.id,
+                headerUserToken: user.userToken
               },
               data: {
                 id: that.data.surveyId,
@@ -70,7 +91,22 @@ Page({
                   wx.reLaunch({
                     url: '../release/release?surveyId=' + that.data.surveyId,
                   })
+                } else {
+
+                  wx.showToast({
+                    title: res.data.msg,
+                    icon: 'none',
+                    duration: 1000,
+                    success: function () {
+                      setTimeout(function () {
+                        wx.reLaunch({
+                          url: '/page/tabBar/login/login',
+                        })
+                      }, 2000);
+                    }
+                  })
                 }
+
               }
             })
           } 

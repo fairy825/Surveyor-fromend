@@ -39,14 +39,30 @@ Page({
       url: url,
       method: 'POST',
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json',
+        headerUserId: userInfo.id,
+        headerUserToken: userInfo.userToken
       },
       success(res) {
         console.log(res.data);
+        if (res.data.status!=200){
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/page/tabBar/login/login',
+                })
+              }, 2000);
+            }
+          })
+        }
         wx.hideLoading();
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
-        if (page === 1) {
+        if (page == 1) {
           that.setData({
             surveyList: []
           });
@@ -76,6 +92,8 @@ Page({
   stopAndStart: function(surveyId, status) {
     var that = this;
     var serverUrl = that.data.serverUrl;
+    var user = app.getGlobalUserInfo();
+
     wx.request({
       url: serverUrl + '/survey/stopAndStart',
       data: {
@@ -84,7 +102,9 @@ Page({
       },
       method: 'POST',
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json',
+        headerUserId: user.id,
+        headerUserToken: user.userToken
       },
       success(res) {
         console.log(res.data);
@@ -92,6 +112,20 @@ Page({
         if (status == 200) {
           wx.navigateTo({
             url: '../myQuest/myQuest',
+          })
+        } else {
+
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 1000,
+            success: function () {
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/page/tabBar/login/login',
+                })
+              }, 2000);
+            }
           })
         }
       }
@@ -161,6 +195,7 @@ Page({
                 icon: 'none'
               })
             } else {
+              var user = app.getGlobalUserInfo();
               wx.showModal({
                 title: '确认删除？',
                 success(res) {
@@ -170,13 +205,29 @@ Page({
                       url: serverUrl + '/survey/delete?id=' + surveyId,
                       method: 'POST',
                       header: {
-                        'content-type': 'application/json' // 默认值
+                        'content-type': 'application/json', // 默认值
+                        headerUserId: user.id,
+                        headerUserToken: user.userToken
                       },
                       success(res) {
                         var status = res.data.status;
                         if (status == 200) {
                           wx.redirectTo({
                             url: '../myQuest/myQuest',
+                          })
+                        } else {
+
+                          wx.showToast({
+                            title: res.data.msg,
+                            icon: 'none',
+                            duration: 1000,
+                            success: function () {
+                              setTimeout(function () {
+                                wx.reLaunch({
+                                  url: '/page/tabBar/login/login',
+                                })
+                              }, 2000);
+                            }
                           })
                         }
                       }

@@ -115,12 +115,16 @@ Page({
   getData: function (surveyId) {
     var that = this
     var serverUrl = app.serverUrl;
+    var user = app.getGlobalUserInfo();
+
     var url = serverUrl + '/statistics';
 
     wx.request({
       url: url, 
       header: {
         'content-type': 'application/json', // 默认值
+        headerUserId: user.id,
+        headerUserToken: user.userToken
       },
       data: {
         surveyId: surveyId
@@ -148,17 +152,17 @@ Page({
         
 
         } else {
+
           wx.showToast({
-            title: '网络不给力，请稍后重试',
+            title: res.data.msg,
             icon: 'none',
             duration: 1000,
             success: function () {
               setTimeout(function () {
-                //要延时执行的代码
-                wx.navigateBack({
-
+                wx.reLaunch({
+                  url: '/page/tabBar/login/login',
                 })
-              }, 1000) //延迟时间
+              }, 2000);
             }
           })
         }
